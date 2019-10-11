@@ -3,6 +3,8 @@ import { LoginService } from '../service/login.service';
 import { User } from '../model/user';
 import { ToastrService, Toast } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { StorageService } from '../service/storage.service';
+import { SessionUser } from '../model/session-user';
 
 @Component({
   selector: 'app-login',
@@ -18,15 +20,19 @@ export class LoginComponent implements OnInit {
   private router: Router;
   private response;
   errorMessage: any;
+  private storageService: StorageService;
+
 
   constructor(
     router: Router,
     loginService: LoginService,
-    toastr: ToastrService
+    toastr: ToastrService,
+    storageService: StorageService
   ) { 
     this.router = router;
     this.loginService = loginService;
     this.toastr = toastr;
+    this.storageService = storageService;
   }
 
   ngOnInit() {
@@ -39,7 +45,12 @@ export class LoginComponent implements OnInit {
       Response => {
         this.response = Response;
         if (this.response.status === 'ok') {
-          let token = this.response.singleResponse;
+          let token = this.response.singleValue;
+          let tcUser = this.response.data[0];
+          const loginData = new SessionUser();
+          loginData.tcUser = tcUser;
+          loginData.token = token;
+          this.storageService.setCurrentSession(loginData);
           sessionStorage.setItem('token', token);
           this.toastr.success('Acceso correcto');
           this.router.navigate(['/home']);
