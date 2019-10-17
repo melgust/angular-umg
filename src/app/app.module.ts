@@ -3,19 +3,27 @@ import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { AuthorizatedGuard } from './guard/authorizated.guard';
+import { StorageService } from './service/storage.service';
+import { DatePipe } from '@angular/common';
+import { AuthInterceptorService } from './service/auth-interceptor.service';
+import { TcProviderComponent } from './catalog/tc-provider/tc-provider.component';
+import { TcProviderAddComponent } from './catalog/tc-provider-add/tc-provider-add.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    TcProviderComponent,
+    TcProviderAddComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +37,16 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    AuthorizatedGuard,
+    StorageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi : true
+    }, 
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

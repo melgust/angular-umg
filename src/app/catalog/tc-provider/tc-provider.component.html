@@ -1,0 +1,13 @@
+<button type="button" class="btn btn-success px-4" (click)="addProvider()">Agregar</button>
+<table class="table">
+    <tr>
+        <td>Proveedor</td>
+        <td>Contacto</td>
+        <td>opciones</td>
+    </tr>
+    <tr *ngFor="let provider of data">
+        <td>{{ provider.providerDesc }}</td>
+        <td>{{ provider.contactName }}</td>
+        <td><button class="btn btn-sm btn-danger" (click)="editProvider(provider)">Editar</button></td>
+    </tr>
+</table>

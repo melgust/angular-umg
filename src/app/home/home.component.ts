@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../service/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +9,15 @@ import { StorageService } from '../service/storage.service';
 })
 export class HomeComponent implements OnInit {
 
+  private router: Router;
   private storageService: StorageService;
 
   constructor(
-    storageService: StorageService
+    storageService: StorageService,
+    router: Router
   ) { 
     this.storageService = storageService;
+    this.router = router;
   }
 
   ngOnInit() {
@@ -21,6 +25,10 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.storageService.logout();
+  }
+
+  goToProviders() {
+    this.router.navigate(['/provider']);
   }
 
 }
