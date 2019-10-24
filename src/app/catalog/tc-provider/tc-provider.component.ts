@@ -3,6 +3,7 @@ import { TcProviderService } from 'src/app/service/tc-provider.service';
 import { StorageService } from 'src/app/service/storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { TcProvider } from 'src/app/model/tc-provider';
 
 @Component({
   selector: 'app-tc-provider',
@@ -50,6 +51,14 @@ export class TcProviderComponent implements OnInit {
     error => {
       this.toastr.error('Status: ' + error.error.status + ' Error: ' + error.error.error + ' Message: ' + error.error.message);
     });
+  }
+
+  addProvider() {
+    this.router.navigate(['/provider/add']);
+  }
+
+  editProvider(item: TcProvider) {
+    this.router.navigate(['/provider/' + item.providerId + '/edit']);
   }
 
 }
