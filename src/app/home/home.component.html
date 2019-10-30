@@ -1,2 +1,18 @@
-<button type="button" class="btn btn-primary px-4" (click)="logout()">Salir</button>
-<button type="button" class="btn btn-primary px-4" (click)="goToProviders()">Proveedores</button>
+<div class="card">
+    <div class="card-header">
+        Bienvenido
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-danger px-4" (click)="logout()">Salir</button>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-primary px-4" (click)="goToProviders()">Proveedores</button>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-success px-4" (click)="goToOrders()">Pedidos</button>
+            </div>
+        </div>
+    </div>
+</div>

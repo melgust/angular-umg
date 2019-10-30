@@ -17,6 +17,8 @@ import { DatePipe } from '@angular/common';
 import { AuthInterceptorService } from './service/auth-interceptor.service';
 import { TcProviderComponent } from './catalog/tc-provider/tc-provider.component';
 import { TcProviderAddComponent } from './catalog/tc-provider-add/tc-provider-add.component';
+import { TtOrderComponent } from './catalog/tt-order/tt-order.component';
+import { TtOrderAddComponent } from './catalog/tt-order-add/tt-order-add.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { TcProviderAddComponent } from './catalog/tc-provider-add/tc-provider-ad
     HomeComponent,
     LoginComponent,
     TcProviderComponent,
-    TcProviderAddComponent
+    TcProviderAddComponent,
+    TtOrderComponent,
+    TtOrderAddComponent
   ],
   imports: [
     BrowserModule,

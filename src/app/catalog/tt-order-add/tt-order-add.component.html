@@ -1,0 +1,72 @@
+<div class="col-md-12 user-container">
+    <h2 class="text-center"> {{ data.orderId == null ? 'Nuevo pedido' : 'Editar pedido'}}</h2>
+    <form [formGroup]="generalForm" (ngSubmit)="onSubmit()">
+        <div class="hidden">
+            <label for="total">Número de orden</label>
+            <input type="text" formControlName="orderId" placeholder="Automático" name="orderId" class="form-control" id="orderId" readonly="true">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="clientId">Cliente</label>
+            <ng-select [items]="dataClient" name="clientId" placeholder="Seleccione..." formControlName="clientId" 
+                (change) = "setClient($event)" bindLabel="clientDesc" autofocus bindValue="clientId"> 
+            </ng-select>
+        </div>
+        <div class="form-group">
+            <label for="total">Total</label>
+            <input type="text" formControlName="total" placeholder="Automático" name="total" class="form-control" id="total" disabled>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="statusId">Estado</label>
+            <ng-select [items]="dataStatus" name="statusId" placeholder="Seleccione..." formControlName="statusId" 
+                bindLabel="statusDesc" autofocus bindValue="statusId"> 
+            </ng-select>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-6">
+                        Detalle
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-danger px-4" (click)="addDetail()">Agregar detalle</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <td>Producto</td>
+                            <td>Precio</td>
+                            <td>Cantidad</td>
+                            <td>Total</td>
+                            <td>opciones</td>
+                        </tr>
+                        <tr *ngFor="let detail of data.details; let index = index;">
+                            <td>
+                                <ng-select [items]="dataProduct" name="productId" placeholder="Seleccione..." 
+                                    (change) = "setProduct($event, detail)" bindLabel="productDesc" autofocus bindValue="productId"> 
+                                </ng-select>
+                            </td>
+                            <td>{{ detail.price }}</td>
+                            <td>
+                                <input type="text" placeholder="Cantidad" name="totalItems" class="form-control" formControlName="totalItems" id="totalItems" (blur)="setTotalCost(detail)">
+                            </td>
+                            <td>{{ detail.totalCost }}</td>
+                            <td><button class="btn btn-sm btn-danger" (click)="deleteDetail(detail)">Quitar</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>            
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-danger" (click)="cancel()">Cancelar</button>
+            </div>
+        </div>  
+    </form>
+</div>

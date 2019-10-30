@@ -1,0 +1,15 @@
+<button type="button" class="btn btn-success px-4" (click)="addOrder()">Agregar</button>
+<table class="table">
+    <tr>
+        <td>Cliente</td>
+        <td>Total</td>
+        <td>Fecha pedido</td>
+        <td>opciones</td>
+    </tr>
+    <tr *ngFor="let order of data">
+        <td>{{ order.tcClient.clientDesc }}</td>
+        <td>{{ order.total }}</td>
+        <td>{{ order.createDate | date: 'dd/MM/yyyy' }}</td>
+        <td><button class="btn btn-sm btn-danger" (click)="editOrder(order)">Editar</button></td>
+    </tr>
+</table>
